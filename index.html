@@ -5,8 +5,105 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Forecast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="text-center header"><h1 style="background-color: rgb(121, 37, 255); color: rgb(218, 218, 255);">Weather Dashboard</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="card city">
+                    <div class="card-body text-center">
+                      <h2>Search for a city:</h2>
+                      <input type="text" placeholder="New York" id="citySearch"><button id="searchBtn"><i class="fas fa-search-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="card today">
+                        <div class="card-body">
+                          <h1 id="todayCity"></h1>
+                          <ul>
+                              <li id="todayTemp"></li>
+                              <li id="todayHumidity"></li>
+                              <li id="todayWindSpeed"></li>
+                              <li id="todayUV"></li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row forecast">
+                    <div class="col paddingFix">
+                        <div class="card day" id="day1">
+                            <div class="card-body">
+                                <h4>Thursday</h4>
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card day" id="day2">
+                            <div class="card-body">
+                                <h4>Friday</h4>
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card day" id="day3">
+                            <div class="card-body">
+                                <h4>Saturday</h4>
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card day" id="day4">
+                            <div class="card-body">
+                                <h4>Sunday</h4>
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card day" id="day5">
+                            <div class="card-body">
+                                <h4>Monday</h4>
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/b67fb896d0.js" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 </body>
 </html>

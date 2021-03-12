@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(218, 218, 255);
+}
+.city {
+    margin: 15px;
+    height: 87vh;
+    background-color: rgb(151, 151, 255);
+    color: rgb(239, 239, 255);
+}
+.today {
+    margin: 15px 0px;
+    margin-right: 15px;
+    background-color: rgb(151, 151, 255);
+    color: rgb(239, 239, 255);
+    width: 74vw;
+    padding-bottom: 5vw;
+}
+.today h1 {
+    margin: 10px 20px;
+}
+ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.today ul li {
+    margin: 15px;
+}
+.day {
+    background-color: rgb(151, 151, 255);
+    color: rgb(239, 239, 255);
+}
+.forecast {
+    margin-right: 15px;
+}
+.paddingFix {
+    padding-left: 0px;
+}
+.forecast ul li {
+    margin: 10px 0px;
+}
