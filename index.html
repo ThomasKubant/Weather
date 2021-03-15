@@ -27,7 +27,11 @@
                 <div class="row">
                     <div class="card today">
                         <div class="card-body">
-                          <h1 id="todayCity"></h1>
+                          <div class="currentHeader">
+                            <h1 id="todayCity"></h1>
+                            <img id="todayIcon">
+                            <h2 id="todayDate"></h2>
+                          </div>
                           <ul>
                               <li id="todayTemp"></li>
                               <li id="todayHumidity"></li>
@@ -42,6 +46,7 @@
                         <div class="card day" id="day1">
                             <div class="card-body">
                                 <h4>Thursday</h4>
+                                <img id="day1Icon">
                                 <ul id="day1ul">
                                     <li id="temp0"></li>
                                     <li id="humidity0"></li>
@@ -53,6 +58,7 @@
                         <div class="card day" id="day2">
                             <div class="card-body">
                                 <h4>Friday</h4>
+                                <img id="day2Icon">
                                 <ul id="day2ul">
                                     <li id="temp1"></li>
                                     <li id="humidity1"></li>
@@ -64,6 +70,7 @@
                         <div class="card day" id="day3">
                             <div class="card-body">
                                 <h4>Saturday</h4>
+                                <img id="day3Icon">
                                 <ul id="day3ul">
                                     <li id="temp2"></li>
                                     <li id="humidity2"></li>
@@ -75,6 +82,7 @@
                         <div class="card day" id="day4">
                             <div class="card-body">
                                 <h4>Sunday</h4>
+                                <img id="day4Icon">
                                 <ul id="day4ul">
                                     <li id="temp3"></li>
                                     <li id="humidity3"></li>
@@ -86,6 +94,7 @@
                         <div class="card day" id="day5">
                             <div class="card-body">
                                 <h4>Monday</h4>
+                                <img id="day5Icon">
                                 <ul id="day5ul">
                                     <li id="temp4"></li>
                                     <li id="humidity4"></li>
@@ -99,7 +108,7 @@
         </div>
     </div>
     <script src="https://kit.fontawesome.com/b67fb896d0.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.4/dayjs.min.js"></script>
     <script src="./script.js"></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 </body>
 </html>

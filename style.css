@@ -20,6 +20,11 @@ input {
 }
 .today h1 {
     margin: 10px 20px;
+    float: left;
+}
+.today h2 {
+    margin-top: 18px;
+    float: left;
 }
 ul {
     display: flex;
@@ -28,6 +33,9 @@ ul {
 }
 .today ul li {
     margin: 15px;
+}
+.currentHeader {
+    display: inline-block
 }
 .day {
     background-color: rgb(151, 151, 255);
@@ -50,4 +58,22 @@ ul#cityList {
     margin: 15px 0px;
     padding: 5px 0px;
     background-color: rgb(121, 37, 255);
+}
+span#uvIndex {
+    padding: 0px 5px;
+    border-radius: 4px;
+}
+.green {
+    background-color: rgb(68, 255, 109);
+    color: black;
+}
+.yellow {
+    background-color: rgb(251, 255, 0);
+    color: black;
+}
+.orange {
+    background-color: orange;
+}
+.red {
+    background-color: red;
 }

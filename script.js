@@ -3,14 +3,34 @@ var searchBtn = document.querySelector("#searchBtn");
 var todayEl = document.querySelector(".today");
 var forecastEl = document.querySelector(".forecast");
 var cityHistory = JSON.parse(localStorage.getItem("history"));
+if(cityHistory == null) {cityHistory=[]}
+var todayDate = dayjs().format("MM/DD/YYYY");
+console.log(todayDate);
 if(cityHistory.length <= 0) {cityHistory = []}
 var initialize = function() {
-    fetch('https://api.opencagedata.com/geocode/v1/json?q=New+York&limit=1&key=e3ed4dc63a1744678741122a7c9565b7').then(function(response){
+    var city = JSON.parse(localStorage.getItem("history"));
+    if(city == null) {city=[]}
+    if (city.length != 0) {
+        var search = city[city.length - 1];
+    }
+    else {search = "New York"}
+    console.log(search);
+
+    fetch('https://api.opencagedata.com/geocode/v1/json?q='+search+'&limit=1&key=e3ed4dc63a1744678741122a7c9565b7').then(function(response){
         if(response.ok) {
             response.json().then(function(data) {
                 var lat = data.results[0].geometry.lat;
                 var lon = data.results[0].geometry.lng;
                 var city = data.results[0].components.city;
+                if(city == null) {
+                    city = data.results[0].components.village;
+                }
+                if(city == null) {
+                    city = data.results[0].components.town;
+                }
+                if(city == null) {
+                    city = data.results[0].components.country;
+                }
                 CurrentWeather(lat, lon, city);
             })
 
@@ -74,11 +94,14 @@ var CurrentWeather = function (lat, lon, cityName) {
         if(response.ok) {
             response.json()
             .then(function(data) {
+                console.log(data);
                 var city = cityName;
                 var temp = data.current.temp;
                 var humidity = data.current.humidity;
                 var windSpeed = data.current.wind_speed;
                 var uvIndex = data.current.uvi;
+                var icon = data.current.weather[0].icon;
+                document.getElementById('todayIcon').src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
                 var forecastData = data.daily;
                 displayToday(city, temp, humidity, windSpeed, uvIndex);
                 forecast(forecastData);
@@ -94,9 +117,24 @@ var displayToday = function(city, temp, humidity, windSpeed, uvIndex) {
     document.querySelector('#todayTemp').textContent = 'Temperature: ' + temp;
     document.querySelector('#todayHumidity').textContent = 'Humidity: ' + humidity + '%';
     document.querySelector('#todayWindSpeed').textContent = 'Wind speed: ' + windSpeed + 'MPH';
-    document.querySelector('#todayUV').textContent = 'UV Index: ' + uvIndex;
-}
+    var uvEl = document.querySelector('#todayUV');
+    uvEl.innerHTML = 'UV Index: ' + "<span id = 'uvIndex'>" + uvIndex + "</span>";
+    var uvNumberEl = document.querySelector('#uvIndex');
+    if(uvIndex < 3) {
+        uvNumberEl.className = "green";
+    }
+    else if (uvIndex < 6) {
+        uvNumberEl.className = "yellow";
+    }
+    else if (uvIndex < 9) {
+        uvNumberEl.className = "orange";
+    }
+    else if (uvIndex < 12) {
+        uvNumberEl.className = "red";
+    }
+}    
 var forecast = function(data) {
+    console.log(data);
     var temp0 = data[0].temp.day;
     var temp1 = data[1].temp.day;
     var temp2 = data[2].temp.day;
@@ -107,6 +145,12 @@ var forecast = function(data) {
     var humidity2 = data[2].humidity;
     var humidity3 = data[3].humidity;
     var humidity4 = data[4].humidity;
+    var icon0 = data[0].weather[0].icon;
+    var icon1 = data[1].weather[0].icon;
+    var icon2 = data[2].weather[0].icon;
+    var icon3 = data[3].weather[0].icon;
+    var icon4 = data[4].weather[0].icon;
+    console.log(icon2);
     document.getElementById('temp0').textContent = 'Temperature: ' + temp0;
     document.getElementById('temp1').textContent = 'Temperature: ' + temp1;
     document.getElementById('temp2').textContent = 'Temperature: ' + temp2;
@@ -117,6 +161,11 @@ var forecast = function(data) {
     document.getElementById('humidity2').textContent = 'Humidity: ' + humidity2 + '%';
     document.getElementById('humidity3').textContent = 'Humidity: ' + humidity3 + '%';
     document.getElementById('humidity4').textContent = 'Humidity: ' + humidity4 + '%';
+    document.getElementById('day1Icon').src = "http://openweathermap.org/img/wn/" + icon0 + "@2x.png";
+    document.getElementById('day2Icon').src = "http://openweathermap.org/img/wn/" + icon1 + "@2x.png";
+    document.getElementById('day3Icon').src = "http://openweathermap.org/img/wn/" + icon2 + "@2x.png";
+    document.getElementById('day4Icon').src = "http://openweathermap.org/img/wn/" + icon3 + "@2x.png";
+    document.getElementById('day5Icon').src = "http://openweathermap.org/img/wn/" + icon4 + "@2x.png";
 }
 var addSearchHistory = function(city) {
     cityHistory.push(city);
@@ -125,6 +174,8 @@ var addSearchHistory = function(city) {
 }
 var displaySearchHistory = function() {
     var history = JSON.parse(localStorage.getItem('history'));
+    console.log(history);
+    if(history == null) {history=[]}
     console.log(history);
     document.getElementById('cityList').innerHTML = "";
     do {history.splice(0,1)} while(history.length>10)
@@ -140,7 +191,7 @@ var historyClick = function() {
     console.log('7');
 }
 searchBtn.addEventListener("click", citySearch);
-citySearch();
+initialize();
 displaySearchHistory();
 document.getElementById('cityList').onclick = function(event) {
     var target = event.target;
@@ -148,3 +199,4 @@ document.getElementById('cityList').onclick = function(event) {
     citySearchNoAdd(text);
     console.log(target);
 }
+document.getElementById('todayDate').textContent = todayDate;
