@@ -2,10 +2,7 @@ var searchEl = document.querySelector("#citySearch");
 var searchBtn = document.querySelector("#searchBtn");
 var todayEl = document.querySelector(".today");
 var forecastEl = document.querySelector(".forecast");
-var cityList = document.getElementById("cityList");
 var cityHistory = [];
-var displayHistoryi = 0;
-var historyi = 0;
 var initialize = function() {
     fetch('https://api.opencagedata.com/geocode/v1/json?q=New+York&limit=1&key=e3ed4dc63a1744678741122a7c9565b7').then(function(response){
         if(response.ok) {
@@ -25,9 +22,20 @@ var citySearch = function() {
     fetch('https://api.opencagedata.com/geocode/v1/json?q=' + userInput + '&limit=1&key=e3ed4dc63a1744678741122a7c9565b7').then(function(response){
         if(response.ok) {
             response.json().then(function(data) {
+                console.log(data);
                 var lat = data.results[0].geometry.lat;
                 var lon = data.results[0].geometry.lng;
                 var city = data.results[0].components.city;
+                if(city == null) {
+                    city = data.results[0].components.village;
+                }
+                if(city == null) {
+                    city = data.results[0].components.town;
+                }
+                if(city == null) {
+                    city = data.results[0].components.country;
+                }
+                console.log(city);
                 CurrentWeather(lat, lon, city);
                 addSearchHistory(city);
             })
@@ -66,17 +74,12 @@ var forecast = function(data) {
     
 }
 var getSearchHistory = function() {
-    var history = JSON.parse(localStorage.getItem('history'));
-    console.log(history);
-    displaySearchHistory(history);
+    cityHistory = JSON.parse(localStorage.getItem('history'));
+    displaySearchHistory();
 }
 var addSearchHistory = function(city) {
-    cityHistory = city;
-    var historyi = localStorage.getItem('historyi');
-    if(historyi == null){historyi=0;}
-    localStorage.setItem('city' + historyi, JSON.stringify(cityHistory));
-    historyi++;
-    localStorage.setItem('historyi', historyi);
+    cityHistory.push(city);
+    localStorage.setItem('history', JSON.stringify(cityHistory));
 }
 var initialSearchHistory = function() {
     var history = JSON.parse(localStorage.getItem('history'));
@@ -84,13 +87,16 @@ var initialSearchHistory = function() {
         var newCity = document.createElement("LI");
         newCity.innerText = history[i];
         document.getElementById('cityList').appendChild(newCity);
-     }
+    }
 }
-var displaySearchHistory = function(history) {
-    var newCity = document.createElement("LI");
-    newCity.innerText = history[displayHistoryi];
-    document.getElementById('cityList').appendChild(newCity);
-    displayHistoryi++;
+var displaySearchHistory = function() {
+    var history = JSON.parse(localStorage.getItem('history'));
+    for(i=0;i<history.length;i++) {
+        var newCity = document.createElement("LI");
+        newCity.innerText = history[i];
+        document.getElementById('cityList').appendChild(newCity);
+    }
+    
     
 }
 searchBtn.addEventListener("click", citySearch);
