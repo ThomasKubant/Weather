@@ -1,6 +1,9 @@
 body {
     background-color: rgb(218, 218, 255);
 }
+input {
+    margin-bottom: 35px;
+}
 .city {
     margin: 15px;
     height: 87vh;
@@ -38,4 +41,13 @@ ul {
 }
 .forecast ul li {
     margin: 10px 0px;
+}
+ul#cityList {
+    list-style: none;
+    padding-left: 0px;
+}
+.searchItem {
+    margin: 15px 0px;
+    padding: 5px 0px;
+    background-color: rgb(121, 37, 255);
 }
